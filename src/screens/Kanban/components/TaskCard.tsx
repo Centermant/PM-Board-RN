@@ -41,7 +41,6 @@ export default function TaskCard({
   const assignee = users.find(u => u.id === task.assigneeId);
   const project = projects.find(p => p.id === task.projectId);
 
-  // ✅ Shared values для анимации самой карточки
   const scale = useSharedValue(1);
   const opacity = useSharedValue(1);
 
@@ -49,18 +48,14 @@ export default function TaskCard({
     .activateAfterLongPress(100)
     .minDistance(5)
     .onStart((event) => {
-      // ✅ Скрываем оригинальную карточку
       scale.value = withSpring(0.95);
       opacity.value = withTiming(0, { duration: 100 });
-      // ✅ Передаём абсолютные координаты
       runOnJS(onDragStart)(event.absoluteX, event.absoluteY);
     })
     .onUpdate((event) => {
-      // ✅ Передаём абсолютные координаты при движении
       runOnJS(onDragMove)(event.absoluteX, event.absoluteY);
     })
     .onEnd(() => {
-      // ✅ Возвращаем карточку
       scale.value = withSpring(1);
       opacity.value = withTiming(1);
       runOnJS(onDragEnd)();
@@ -68,7 +63,6 @@ export default function TaskCard({
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],
-    // ✅ Полная прозрачность когда isDragging=true
     opacity: isDragging ? 0 : opacity.value,
   }));
 

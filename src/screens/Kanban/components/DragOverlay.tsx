@@ -15,7 +15,6 @@ interface DragOverlayProps {
 
 export default function DragOverlay({ task, colors, isDragging }: DragOverlayProps) {
   const animatedStyle = useAnimatedStyle(() => ({
-    // ✅ Убраны все translate трансформации — они теперь в KanbanScreen
     transform: [
       { scale: 1.05 },
     ],
@@ -73,7 +72,6 @@ const styles = StyleSheet.create({
     width: 280,
     padding: 14,
     borderRadius: 10,
-    // ✅ Начальные translateX/Y = 0, управляются родителем
   },
   taskTitle: {
     fontSize: 14,
